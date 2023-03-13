@@ -57,16 +57,4 @@ ig.module("nax-ccuilib.ui.test-menu")
 
 			},
 		});
-
-		function registerSubMenu(menuName: string, clazz: Function) {
-			const enumString = menuName.toUpperCase();
-			// @ts-ignore
-			sc.MENU_SUBMENU[enumString] = Math.max(...Object.values(sc.MENU_SUBMENU)) + 1;
-
-			// @ts-ignore
-			sc.SUB_MENU_INFO[sc.MENU_SUBMENU[enumString]] = {
-				Clazz: clazz,
-				name: menuName
-			};
-		}
-	})
+	});
