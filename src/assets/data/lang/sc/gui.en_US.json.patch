@@ -1,0 +1,12 @@
+{
+	"labels": {
+		"title-screen": {
+			"testMenu": "Test menu"
+		},
+		"menu": {
+			"menu-titles": {
+				"testMenu": "Test Menu"
+			}
+		}
+	}
+}

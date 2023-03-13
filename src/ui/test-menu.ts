@@ -19,6 +19,11 @@ ig.module("nax-ccuilib.ui.test-menu")
 				this.content = new ig.GuiElementBase();
 				this.content.setSize(300, 200);
 
+				const inputField = new nax.ccuilib.InputField(150, 20);
+				inputField.setAlign(ig.GUI_ALIGN.X_CENTER, ig.GUI_ALIGN.Y_CENTER);
+
+				this.addChildGui(inputField);
+				this.buttonGroup.addFocusGui(inputField, 0, 0);
 
 				this.doStateTransition("DEFAULT", true);
 			},

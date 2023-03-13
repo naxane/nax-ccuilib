@@ -1,4 +1,4 @@
-ig.module("nax.multiplayer-client.gui.input-field")
+ig.module("nax-ccuilib.ui.input-field")
 	.requires(
 		"impact.feature.gui.gui",
 		"nax-ccuilib.ui.input-field-cursor"
@@ -134,6 +134,12 @@ ig.module("nax.multiplayer-client.gui.input-field")
 					case "ArrowRight":
 						this.updateCursorPos(1);
 						break;
+					case "Home":
+						this.cursorPos = 0;
+						break;
+					case "End":
+						this.cursorPos = this.value.length;
+						break;
 					default: {
 						let old = this.getValueAsString();
 
@@ -143,6 +149,8 @@ ig.module("nax.multiplayer-client.gui.input-field")
 						} else if (event.code === "Backspace" && this.value.length > 0 && this.cursorPos !== 0) { // Backspace
 							this.value.splice(this.cursorPos - 1, 1);
 							this.updateCursorPos(-1);
+						} else if (event.code === "Delete" && this.value.length > 0 && this.cursorPos !== this.value.length) {
+							this.value.splice(this.cursorPos, 1);
 						}
 
 						let text = this.getValueAsString();
@@ -192,7 +200,7 @@ ig.module("nax.multiplayer-client.gui.input-field")
 				}
 			},
 
-			// Copied from ButtonGui
+			// Liberated from ButtonGui
 			update() {
 				this.parent();
 

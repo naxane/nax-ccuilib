@@ -1,4 +1,4 @@
-ig.module("nax.multiplayer-client.gui.input-field-cursor")
+ig.module("nax-ccuilib.ui.input-field-cursor")
 	.requires(
 		"impact.feature.gui.gui"
 	).defines(() => {
