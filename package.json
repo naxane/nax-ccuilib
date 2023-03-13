@@ -1,5 +1,6 @@
 {
   "name": "nax-ccuilib",
+  "version": "1.0.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
