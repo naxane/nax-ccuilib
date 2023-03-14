@@ -111,7 +111,7 @@ ig.module("nax-ccuilib.ui.quick-ring-menu")
 				const zerothPos = this.getPosition(this.getAngle(0));
 				const endPostActive = Vec2.createC(
 					Math.floor(zerothPos.x - 16) + 1,
-					Math.floor(zerothPos.x - 16) + this.buttons.length + 1,
+					Math.floor(zerothPos.y - 16) + this.buttons.length + 1,
 				);
 
 				this.buttons.forEach((button, i) => {

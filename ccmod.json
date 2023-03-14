@@ -1,7 +1,10 @@
 {
   "id": "nax-ccuilib",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "name": "CCUILib",
   "description": "Library of additional UI elements as well as making existing ones configurable",
-  "plugin": "nax-ccuilib/plugin.js"
+  "plugin": "nax-ccuilib/plugin.js",
+  "dependencies": {
+    "nax-module-cache": ">=1.0.0"
+  }
 }
