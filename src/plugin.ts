@@ -12,15 +12,12 @@ export default class Item implements PluginClass {
 		this.mod = mod;
 	}
 
-	async prestart() {
+	prestart() {
+		window.moduleCache.registerModPrefix("nax-ccuilib", this.mod.baseDirectory.substring(7));
 		window.nax = window.nax ?? {};
 		window.nax.ccuilib = window.nax.ccuilib ?? {};
 		ig.lib = this.mod.baseDirectory.substring(7);
-		// @ts-ignore File exists in build.
-		ig._loadScript("nax-ccuilib.ui");
-	}
 
-	postload() {
-		ig.lib = "";
+		ig._loadScript("nax-ccuilib.ui");
 	}
 }
