@@ -127,6 +127,7 @@ ig.module("nax-ccuilib.ui.input-field")
 			},
 
 			processInput(event: KeyboardEvent) {
+				event.preventDefault();
 				switch (event.code) {
 					case "ArrowLeft":
 						this.updateCursorPos(-1);
