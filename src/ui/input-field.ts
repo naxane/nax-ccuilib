@@ -114,7 +114,7 @@ ig.module("nax-ccuilib.ui.input-field")
 			focusGained() {
 				this.parent();
 				ig.input.ignoreKeyboard = true;
-				Object.keys(ig.input.actions).forEach(action => ig.input.actions[action] = false);
+				(Object.keys(ig.input.actions) as unknown[] as ig.KEY[]).forEach((action: ig.KEY) => ig.input.actions[action] = false);
 				this.cursor.active = true;
 				window.addEventListener("keydown", this.boundProcessInput, false);
 			},
