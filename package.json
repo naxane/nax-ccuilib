@@ -14,9 +14,6 @@
     "ultimate-crosscode-typedefs": "github:CCDirectLink/ultimate-crosscode-typedefs"
   },
   "scripts": {
-    "build": "tsc --build && rimraf assets && copyfiles -u 1 src/assets/**/* .",
-    "watch": "tsc --build --watch",
-    "lint": "eslint . --ext .js,.ts --ignore-path .gitignore",
-    "format": "prettier --write **/*.{ts,js}"
+    "build": "tsc --build && rimraf assets && copyfiles -u 1 src/assets/**/* ."
   }
 }
