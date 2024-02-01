@@ -69,6 +69,10 @@ ig.module("nax-ccuilib.ui.quick-ring-menu")
 				this.items.addChildGui(new sc.ItemTimerOverlay(this.items));
 
 				this.updateButtonPositions();
+				
+				// TODO: Hacky fix. Need to make this work properly with all buttons. This sets the order which
+				// is then used by focusCurrentButton which hard-codes the current button selection based on the order below:
+				this.buttongroup.setButtons(...[this.check, this.items, this.map, this.party]);
 
 				//#endregion
 
@@ -90,8 +94,6 @@ ig.module("nax-ccuilib.ui.quick-ring-menu")
 
 				this.buttons.push(button);
 
-				this.buttongroup.setButtons(...this.buttons);
-
 				if (updatePositions) {
 					this.updateButtonPositions();
 				}
@@ -109,9 +111,9 @@ ig.module("nax-ccuilib.ui.quick-ring-menu")
 
 			updateButtonPositions() {
 				const zerothPos = this.getPosition(this.getAngle(0));
-				const endPostActive = Vec2.createC(
+				const endPosActive = Vec2.createC(
 					Math.floor(zerothPos.x - 16) + 1,
-					Math.floor(zerothPos.y - 16) + this.buttons.length + 1,
+					Math.floor(zerothPos.y - 16) + 5,
 				);
 
 				this.buttons.forEach((button, i) => {
@@ -120,7 +122,7 @@ ig.module("nax-ccuilib.ui.quick-ring-menu")
 					let buttonPos = this.getPosition(angle);
 
 					// I have no idea what this property is for beyond transitions.
-					button.endPosActive = endPostActive;
+					button.endPosActive = endPosActive;
 
 					button.endPos.x = Math.floor(buttonPos.x - 16) + 1;
 					button.endPos.y = Math.floor(buttonPos.y - 16) + 1;
