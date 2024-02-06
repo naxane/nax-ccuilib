@@ -4,16 +4,19 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
+    "archiver": "^6.0.1",
     "copyfiles": "^2.4.1",
+    "esbuild": "^0.20.0",
     "eslint": "^8.13.0",
     "eslint-config-dmitmel": "github:CCDirectLink/ultimate-crosscode-typedefs",
     "eslint-plugin-node": "^11.1.0",
+    "fs": "^0.0.1-security",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.3",
     "ultimate-crosscode-typedefs": "github:CCDirectLink/ultimate-crosscode-typedefs"
   },
   "scripts": {
-    "build": "tsc --build && rimraf assets && copyfiles -u 1 src/assets/**/* ."
+    "build": "node esbuild.js"
   }
 }
