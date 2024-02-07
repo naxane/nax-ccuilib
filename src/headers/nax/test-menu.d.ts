@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
 	namespace nax {
@@ -12,7 +12,7 @@ declare global {
 			}
 
 			interface TestMenuCon extends ImpactClass<TestMenu> {
-				new(): TestMenu;
+				new (): TestMenu;
 			}
 
 			let TestMenu: TestMenuCon;

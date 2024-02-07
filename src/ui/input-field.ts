@@ -1,8 +1,6 @@
 ig.module("nax-ccuilib.ui.input-field")
-	.requires(
-		"impact.feature.gui.gui",
-		"nax-ccuilib.ui.input-field-cursor"
-	).defines(() => {
+	.requires("impact.feature.gui.gui", "nax-ccuilib.ui.input-field-cursor")
+	.defines(() => {
 		nax.ccuilib.INPUT_FIELD_TYPE = {};
 		nax.ccuilib.INPUT_FIELD_TYPE.DEFAULT = {
 			height: 20,
@@ -14,19 +12,19 @@ ig.module("nax-ccuilib.ui.input-field")
 				right: 2,
 				bottom: 2,
 				offsets: {
-					"default": {
+					default: {
 						x: 184,
-						y: 24
+						y: 24,
 					},
 					focus: {
 						x: 184,
-						y: 24
+						y: 24,
 					},
 					pressed: {
 						x: 184,
-						y: 24
+						y: 24,
 					},
-				}
+				},
 			}),
 			highlight: {
 				startX: 200,
@@ -35,15 +33,8 @@ ig.module("nax-ccuilib.ui.input-field")
 				rightWidth: 2,
 				offsetY: 24,
 				gfx: new ig.Image("media/gui/buttons.png"),
-				pattern: new ig.ImagePattern(
-					"media/gui/buttons.png",
-					202,
-					24,
-					11,
-					20,
-					ig.ImagePattern.OPT.REPEAT_X,
-				)
-			}
+				pattern: new ig.ImagePattern("media/gui/buttons.png", 202, 24, 11, 20, ig.ImagePattern.OPT.REPEAT_X),
+			},
 		};
 
 		nax.ccuilib.InputField = ig.FocusGui.extend({
@@ -114,7 +105,7 @@ ig.module("nax-ccuilib.ui.input-field")
 			focusGained() {
 				this.parent();
 				ig.input.ignoreKeyboard = true;
-				(Object.keys(ig.input.actions) as unknown[] as ig.KEY[]).forEach((action: ig.KEY) => ig.input.actions[action] = false);
+				(Object.keys(ig.input.actions) as unknown[] as ig.KEY[]).forEach((action: ig.KEY) => (ig.input.actions[action] = false));
 				this.cursor.active = true;
 				window.addEventListener("keydown", this.boundProcessInput, false);
 			},
@@ -147,7 +138,8 @@ ig.module("nax-ccuilib.ui.input-field")
 						if (event.key.length === 1 && this.validChars.test(event.key)) {
 							this.value.splice(this.cursorPos, 0, event.key);
 							this.updateCursorPos(1);
-						} else if (event.code === "Backspace" && this.value.length > 0 && this.cursorPos !== 0) { // Backspace
+						} else if (event.code === "Backspace" && this.value.length > 0 && this.cursorPos !== 0) {
+							// Backspace
 							this.value.splice(this.cursorPos - 1, 1);
 							this.updateCursorPos(-1);
 						} else if (event.code === "Delete" && this.value.length > 0 && this.cursorPos !== this.value.length) {
@@ -206,7 +198,7 @@ ig.module("nax-ccuilib.ui.input-field")
 				this.parent();
 
 				if (this.keepPressed && this.pressed && this.animateOnPress) {
-					// If this element is currently focussed 
+					// If this element is currently focussed
 					if (this.focus) {
 						this.alphaTimer = (this.alphaTimer + ig.system.actualTick) % 1;
 					} else {
@@ -217,27 +209,23 @@ ig.module("nax-ccuilib.ui.input-field")
 					this.focusTimer = this.focusTimer + ig.system.actualTick;
 					if (this.focusTimer > 0.1) this.focusTimer = 0.1; // This line is made redundant by this.focusTimer.limit(0, 0.1);
 					this.alphaTimer = 0;
-				} else if (this.focus && this.focusTimer < 0.1) { // If we are focussing and the focus timer is less than max, increase the focus timer
+				} else if (this.focus && this.focusTimer < 0.1) {
+					// If we are focussing and the focus timer is less than max, increase the focus timer
 					this.focusTimer = this.focusTimer + ig.system.actualTick;
 					this.alphaTimer = 0;
-				} else if (!this.focus && this.focusTimer > 0) { // If we are no longer focussing, reduce the focus timer
+				} else if (!this.focus && this.focusTimer > 0) {
+					// If we are no longer focussing, reduce the focus timer
 					this.focusTimer = this.focusTimer - ig.system.actualTick;
 					this.alphaTimer = 0;
 				} else {
 					this.alphaTimer = (this.alphaTimer + ig.system.actualTick) % 1;
 				}
 				this.focusTimer.limit(0, 0.1);
-				this.bg.currentTileOffset = this.keepPressed && this.pressed ?
-					"pressed" :
-					this.focus ?
-						"focus" :
-						"default";
+				this.bg.currentTileOffset = this.keepPressed && this.pressed ? "pressed" : this.focus ? "focus" : "default";
 				if (this.highlight) {
 					this.highlight.focusWeight = this.focusTimer / 0.1;
 					var a = this.alphaTimer / 1,
-						a = KEY_SPLINES.EASE_IN_OUT.get(
-							1 - (a > 0.5 ? 1 - (a - 0.5) * 2 : a * 2),
-						),
+						a = KEY_SPLINES.EASE_IN_OUT.get(1 - (a > 0.5 ? 1 - (a - 0.5) * 2 : a * 2)),
 						a = 0.8 * a + 0.2;
 					this.active || (a = a * 0.5);
 					this.highlight.hook.localAlpha = a;
@@ -253,6 +241,6 @@ ig.module("nax-ccuilib.ui.input-field")
 				}
 				this.focusTimer = 0;
 				this.alphaTimer = 0;
-			}
+			},
 		});
 	});
