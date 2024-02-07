@@ -1,7 +1,6 @@
 ig.module("nax-ccuilib.ui.input-field-cursor")
-	.requires(
-		"impact.feature.gui.gui"
-	).defines(() => {
+	.requires("impact.feature.gui.gui")
+	.defines(() => {
 		nax.ccuilib.InputFieldCursor = ig.GuiElementBase.extend({
 			colour: "red",
 			cursorTick: 0,

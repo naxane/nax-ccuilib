@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
 	namespace nax {
@@ -11,7 +11,7 @@ declare global {
 			}
 
 			interface InputFieldCursorCon extends ImpactClass<InputFieldCursor> {
-				new(colour: string): InputFieldCursor;
+				new (colour: string): InputFieldCursor;
 			}
 
 			let InputFieldCursor: InputFieldCursorCon;

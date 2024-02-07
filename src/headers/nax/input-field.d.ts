@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
 	namespace nax {
@@ -34,7 +34,7 @@ declare global {
 			}
 
 			interface InputFieldCon extends ImpactClass<InputField> {
-				new(width: number, height: number, type?: nax.ccuilib.InputFieldType, obscure?: boolean, obscureChar?: string): InputField;
+				new (width: number, height: number, type?: nax.ccuilib.InputFieldType, obscure?: boolean, obscureChar?: string): InputField;
 			}
 
 			let InputField: InputFieldCon;
