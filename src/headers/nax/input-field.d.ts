@@ -20,16 +20,17 @@ declare global {
 				dummyForClipping: sc.DummyContainer;
 				highlight: sc.ButtonHighlightGui;
 				textChild: sc.TextGui;
-				calculateCursorPos(this: this): number;
-				getValueAsString(this: this): string;
-				processInput(this: this, event: KeyboardEvent): void;
-				unsetFocus(this: this): void;
-				updateCursorPos(this: this, delta: number): void;
 				cursorTick: number;
 				cursorPos: number;
 				cursor: InputFieldCursor;
 				obscure: boolean;
 				obscureChar: string;
+
+				calculateCursorPos(this: this): number;
+				getValueAsString(this: this): string;
+				processInput(this: this, event: KeyboardEvent): void;
+				unsetFocus(this: this): void;
+				updateCursorPos(this: this, delta: number): void;
 				setObscure(this: this, obscure: boolean): void;
 			}
 
