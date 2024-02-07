@@ -1,10 +1,8 @@
-export { };
+export {};
 
 declare global {
-
 	namespace nax {
 		namespace ccuilib {
-
 			interface InputFieldType {
 				height: number;
 				ninepatch: ig.NinePatch;

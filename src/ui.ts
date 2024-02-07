@@ -1,16 +1,11 @@
 ig.module("nax-ccuilib.ui")
-	.requires(
-		"nax-ccuilib.ui.test-menu",
-		"nax-ccuilib.ui.quick-ring-menu",
-		"nax-ccuilib.ui.input-field",
-	)
+	.requires("nax-ccuilib.ui.test-menu", "nax-ccuilib.ui.quick-ring-menu", "nax-ccuilib.ui.input-field")
 	.defines(() => {
-
 		// sc.TitleScreenButtonGui.inject({
 		// 	init() {
 		// 		this.parent();
 
-		// 		// Get the last button that was instanced in the parent init, which is also the button with the highest Y position. 
+		// 		// Get the last button that was instanced in the parent init, which is also the button with the highest Y position.
 		// 		let highestButton = this.buttons[this.buttons.length - 1];
 
 		// 		// @ts-ignore
@@ -42,9 +37,9 @@ ig.module("nax-ccuilib.ui")
 			// @ts-ignore
 			sc.SUB_MENU_INFO[sc.MENU_SUBMENU[enumString]] = {
 				Clazz: clazz,
-				name: menuName
+				name: menuName,
 			};
-		}
+		};
 
 		//nax.ccuilib.registerSubMenu("TEST_MENU", nax.ccuilib.TestMenu);
 	});

@@ -2,10 +2,9 @@
 
 /// <reference path="global.d.ts" />
 
-import { Mod, PluginClass } from 'ultimate-crosscode-typedefs/modloader/mod';
+import { Mod, PluginClass } from "ultimate-crosscode-typedefs/modloader/mod";
 
 export default class Item implements PluginClass {
-
 	mod: Mod;
 
 	constructor(mod: Mod) {

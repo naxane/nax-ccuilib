@@ -1,8 +1,5 @@
 ig.module("nax-ccuilib.ui.test-menu")
-	.requires(
-		"impact.feature.gui.gui",
-		"nax-ccuilib.ui.input-field"
-	)
+	.requires("impact.feature.gui.gui", "nax-ccuilib.ui.input-field")
 	.defines(() => {
 		nax.ccuilib.TestMenu = sc.BaseMenu.extend({
 			buttonGroup: null,
@@ -58,8 +55,6 @@ ig.module("nax-ccuilib.ui.test-menu")
 			},
 
 			// Although empty, is required.
-			modelChanged(sender, event, data) {
-
-			},
+			modelChanged(sender, event, data) {},
 		});
 	});
