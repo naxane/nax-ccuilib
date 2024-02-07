@@ -27,6 +27,7 @@ export const quickRingUtil = {
 	},
 
 	ringCountToInit: 3 as const,
+	selGridW: 4 as const,
 	possibleIds: [] as number[],
 
 	getAllIdsFromRing(ring: number) {
