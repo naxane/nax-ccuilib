@@ -1,4 +1,4 @@
-export {}
+export {};
 ig.module("nax-ccuilib.ui.quick-menu.additional-widgets")
 	.requires("game.feature.party.party")
 	.defines(() => {

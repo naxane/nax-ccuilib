@@ -51,38 +51,55 @@ ig.module("nax-ccuilib.ui.quick-menu.button-traversal-patch")
 				if (!inputRegained || dirOverride) {
 					sc.control.menuConfirm() && this.invokeCurrentButton();
 
-					const dirVec: Vec2 = dirOverride ?? Vec2.createC(ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_X), ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_Y));
-					if (Vec2.isZero(dirVec)) return;
-					this.lastDir = dirVec;
+					if (ig.input.currentDevice == ig.INPUT_DEVICES.GAMEPAD) {
+						const currentRing = sc.QuickRingMenu.instance.currentRingIndex;
+						const ids = getAllIdsFromRing(currentRing);
+						if (ids.length == 0) return;
+						const dirVec: Vec2 = dirOverride ?? Vec2.createC(ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_X), ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_Y));
+						if (Vec2.isZero(dirVec)) return;
+						this.lastDir = dirVec;
+						if (currentRing == ringCountToInit) {
+							const dir = this.getRepeaterValue(dirVec);
+							const currentButton = this.elements[this.current.x][this.current.y];
+							const firstId = getIdFromRingPos(ringCountToInit, 0);
+							let focusedId = currentButton.ringId;
+							if (getRingPosFromId(focusedId).ring != ringCountToInit) focusedId = firstId;
+							if (dirOverride) this.focusButtonByRingId(firstId);
+							if (dir) {
+								const id = this.getRingIdFromDir(dir, focusedId);
+								if (id >= firstId) this.focusButtonByRingId(id);
+							}
+						} else {
+							const angles = ids.map(id => sc.QuickRingMenu.instance.ringAngles[id].pure);
 
-					const currentRing = sc.QuickRingMenu.instance.currentRingIndex;
-					const ids = getAllIdsFromRing(currentRing);
-					if (ids.length == 0) return;
-
-					if (currentRing == ringCountToInit) {
-						const dir = this.getRepeaterValue(dirVec);
-						const currentButton = this.elements[this.current.x][this.current.y];
-						const firstId = getIdFromRingPos(ringCountToInit, 0);
-						let focusedId = currentButton.ringId;
-						if (getRingPosFromId(focusedId).ring != ringCountToInit) focusedId = firstId;
-						if (dirOverride) this.focusButtonByRingId(firstId);
-						if (dir) {
-							const id = this.getRingIdFromDir(dir, focusedId);
-							if (id >= firstId) this.focusButtonByRingId(id);
+							const closestIndex = angles.reduce(
+								(acc: [number, number], vec: Vec2, i: number) => {
+									const dist = Vec2.distance(dirVec, vec);
+									if (dist < acc[0]) return [dist, i] as [number, number];
+									return acc;
+								},
+								[1000, -1]
+							)[1];
+							const id = ids[closestIndex];
+							this.focusButtonByRingId(id);
 						}
-					} else {
-						const angles = ids.map(id => sc.QuickRingMenu.instance.ringAngles[id].pure);
-
-						const closestIndex = angles.reduce(
-							(acc: [number, number], vec: Vec2, i: number) => {
-								const dist = Vec2.distance(dirVec, vec);
-								if (dist < acc[0]) return [dist, i] as [number, number];
-								return acc;
-							},
-							[1000, -1]
-						)[1];
-						const id = ids[closestIndex];
-						this.focusButtonByRingId(id);
+					} else if (ig.input.currentDevice == ig.INPUT_DEVICES.KEYBOARD_AND_MOUSE) {
+						const dirs: { cond: () => boolean; id: number }[] = [
+							{ cond: () => sc.control.leftDown() && sc.control.upDown(), id: 1 },
+							{ cond: () => sc.control.leftDown() && sc.control.downDown(), id: 3 },
+							{ cond: () => sc.control.rightDown() && sc.control.downDown(), id: 5 },
+							{ cond: () => sc.control.rightDown() && sc.control.upDown(), id: 7 },
+							{ cond: () => sc.control.upDown(), id: 0 },
+							{ cond: () => sc.control.leftDown(), id: 2 },
+							{ cond: () => sc.control.downDown(), id: 4 },
+							{ cond: () => sc.control.rightDown(), id: 6 },
+						];
+						for (const dir of dirs) {
+							if (dir.cond()) {
+								this.focusButtonByRingId(dir.id);
+								break;
+							}
+						}
 					}
 				}
 			},
