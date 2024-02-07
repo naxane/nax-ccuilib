@@ -1,5 +1,5 @@
 ig.module("nax-ccuilib.ui")
-	.requires("nax-ccuilib.ui.test-menu", "nax-ccuilib.ui.quick-ring-menu", "nax-ccuilib.ui.input-field")
+	.requires("nax-ccuilib.ui.test-menu", "nax-ccuilib.ui.input-field", "nax-ccuilib.ui.quick-menu.quick-menu-extension")
 	.defines(() => {
 		// sc.TitleScreenButtonGui.inject({
 		// 	init() {

@@ -1,18 +1,14 @@
 {
-  "include": [
-    "src",
-    "node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts",
-    "src/assets/**.*"
-  ],
-  "compilerOptions": {
-    "inlineSourceMap": true,
-    "strict": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "target": "es2018",
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "noErrorTruncation": true,
-    "noEmit": true
-  }
+	"include": ["src", "node_modules/ultimate-crosscode-typedefs/crosscode-ccloader-all.d.ts", "src/assets/**.*"],
+	"compilerOptions": {
+		"inlineSourceMap": true,
+		"strict": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"target": "es2018",
+		"allowJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"noErrorTruncation": true,
+		"noEmit": true
+	}
 }
