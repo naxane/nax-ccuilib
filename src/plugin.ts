@@ -28,6 +28,6 @@ export default class Item implements PluginClass {
 	}
 
 	poststart() {
-		import("./ui/quick-menu/additional-widgets.js");
+		ig._loadScript("./ui/quick-menu/additional-widgets.js");
 	}
 }
