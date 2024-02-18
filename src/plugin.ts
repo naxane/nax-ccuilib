@@ -26,8 +26,4 @@ export default class Item implements PluginClass {
 
 		ig._loadScript("nax-ccuilib.ui");
 	}
-
-	poststart() {
-		ig._loadScript("nax-ccuilib.ui.quick-menu.additional-widgets");
-	}
 }
