@@ -78,7 +78,7 @@ export const quickRingUtil = {
 			ringConfiguration: quickRingUtil.loadConfig(),
 			set lockLayout(value: boolean) {
 				quickRingUtil.lockLayout = value;
-				sc.QuickRingMenu.instance.createButtons(true);
+				sc.QuickRingMenu.instance?.createButtons(true);
 			},
 			get lockLayout(): boolean {
 				return quickRingUtil.lockLayout;
