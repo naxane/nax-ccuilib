@@ -17,7 +17,7 @@
 		"ultimate-crosscode-typedefs": "github:krypciak/ultimate-crosscode-typedefs"
 	},
 	"scripts": {
-		"build": "node esbuild.js; rm -rf /home/krypek/home/.local/share/Steam/steamapps/common/CrossCode/assets/mods/nax-ccuilib; cp -r dist /home/krypek/home/.local/share/Steam/steamapps/common/CrossCode/assets/mods/nax-ccuilib",
+		"build": "node esbuild.js;",
 		"format": "prettier ./src -w"
 	}
 }
