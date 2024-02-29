@@ -71,7 +71,8 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				this.parent();
 				this.infoBar.doStateTransition("HIDDEN");
 			},
-			nextRing(add) {
+			nextRing(add): boolean {
+				const originalIndex = this.currentRingIndex;
 				let maxIte = 10;
 				const editModeAdd = this.editModeOn ? 1 : 0;
 				do {
@@ -88,15 +89,15 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 						break;
 					}
 				} while (getAllIdsFromRing(this.currentRingIndex).length == 0);
+				return originalIndex != this.currentRingIndex;
 			},
 			update() {
 				this.parent();
 				if (sc.quickmodel.activeState && sc.quickmodel.isQuickNone()) {
 					const add = ig.gamepad.isButtonPressed(ig.BUTTONS.LEFT_SHOULDER) ? -1 : ig.gamepad.isButtonPressed(ig.BUTTONS.RIGHT_SHOULDER) ? 1 : 0;
 					if (add != 0) {
-						this.nextRing(add);
+						if (this.nextRing(add)) sc.BUTTON_SOUND.submit.play();
 						this.buttongroup.doButtonTraversal(false, this.buttongroup.lastDir);
-						sc.BUTTON_SOUND.submit.play();
 					}
 
 					const isGamepad = ig.input.currentDevice == ig.INPUT_DEVICES.GAMEPAD;

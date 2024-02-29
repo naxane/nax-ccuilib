@@ -38,7 +38,7 @@ declare global {
 			exitEditMode(this: this): void;
 			showDummyButtons(this: this): void;
 			hideDummyButtons(this: this): void;
-			nextRing(this: this, add: number): void;
+			nextRing(this: this, add: number): boolean;
 		}
 
 		interface QuickRingMenuConstructor {
