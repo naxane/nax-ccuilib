@@ -6,6 +6,7 @@ declare global {
 		var quickRingUtil: typeof quickRingUtilImport;
 
 		interface QuickRingMenuWidgets extends sc.Model {
+			_ringConfiguration: Record<number, string>;
 			ringConfiguration: Record<number, string>;
 			widgets: Record<string, nax.ccuilib.QuickMenuWidget>;
 			lockLayout: boolean;
