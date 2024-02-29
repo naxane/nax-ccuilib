@@ -249,6 +249,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				this.parent();
 				focusedButton = this;
 				const widget = getWidgetFromId(this.ringId);
+				if (!widget) return;
 				sc.QuickRingMenu.instance.infoBar.setText(`${widget.title}${widget.description ? ` - ${widget.description}` : ""}`);
 			},
 			focusLost() {
@@ -258,7 +259,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 			},
 			updateDrawables(renderer) {
 				const widget = getWidgetFromId(this.ringId);
-				// if ('draw' in widget) return widget.draw(renderer, this)
+				if (!widget) return;
 				/* stolen */
 				renderer.addGfx(this.gfx, 0, 0, 400, 304, 32, 32);
 				if (this.active) {
