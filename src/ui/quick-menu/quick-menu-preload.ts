@@ -75,10 +75,17 @@ export const quickRingUtil = {
 				if (nax.ccuilib.QuickRingMenuWidgets.widgets[key]) throw new Error(`Widget: "${key}" already assigned.`);
 				nax.ccuilib.QuickRingMenuWidgets.widgets[key] = widget;
 			},
-			ringConfiguration: quickRingUtil.loadConfig(),
+			_ringConfiguration: quickRingUtil.loadConfig(),
+			get ringConfiguration() {
+				return this._ringConfiguration;
+			},
+			set ringConfiguration(value) {
+				this._ringConfiguration = value;
+				sc?.QuickRingMenu?.instance?.createButtons(true);
+				quickRingUtil.saveConfig(sc?.QuickRingMenu?.instance?.possibleSelGridIds ?? []);
+			},
 			set lockLayout(value: boolean) {
 				quickRingUtil.lockLayout = value;
-				sc.QuickRingMenu.instance?.createButtons(true);
 			},
 			get lockLayout(): boolean {
 				return quickRingUtil.lockLayout;
