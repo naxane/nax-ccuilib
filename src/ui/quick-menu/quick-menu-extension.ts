@@ -101,9 +101,8 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 
 					const isGamepad = ig.input.currentDevice == ig.INPUT_DEVICES.GAMEPAD;
 					if (
-						!nax.ccuilib.QuickRingMenuWidgets.lockLayout && isGamepad
-							? ig.gamepad.isButtonPressed(ig.BUTTONS.FACE2 /* x */)
-							: ig.input.pressed("dash") /* right click */
+						!nax.ccuilib.QuickRingMenuWidgets.lockLayout &&
+						(isGamepad ? ig.gamepad.isButtonPressed(ig.BUTTONS.FACE2 /* x */) : ig.input.pressed("dash")) /* right click */
 					) {
 						if (!this.selectedToMoveButton) {
 							if (this.editModeOn) {
