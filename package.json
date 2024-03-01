@@ -17,7 +17,7 @@
 		"ultimate-crosscode-typedefs": "github:krypciak/ultimate-crosscode-typedefs"
 	},
 	"scripts": {
-		"build": "node esbuild.js;",
+		"build": "node esbuild.js",
 		"format": "prettier ./src -w"
 	}
 }
