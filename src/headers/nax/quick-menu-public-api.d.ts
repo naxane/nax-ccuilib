@@ -25,6 +25,7 @@ declare global {
 			| {
 					image: QuickMenuWidgetImageConfig;
 					_imageDataCached: ReturnType<QuickMenuWidgetImageConfig>;
+					imageNoCache?: boolean;
 			  }
 			| {}
 		);

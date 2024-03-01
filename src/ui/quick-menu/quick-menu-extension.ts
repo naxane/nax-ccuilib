@@ -275,7 +275,12 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				/* stolen end */
 				if (!("image" in widget)) return;
 
-				let data = (widget._imageDataCached ??= widget.image(this));
+				let data: ReturnType<nax.ccuilib.QuickMenuWidgetImageConfig>;
+				if (!widget.imageNoCache && widget._imageDataCached) {
+					data = widget._imageDataCached;
+				} else {
+					data = widget._imageDataCached = widget.image(this);
+				}
 				const { pos, srcPos, size } = data;
 				renderer.addGfx(data.gfx, pos.x, pos.y, srcPos.x, srcPos.y, size.x, size.y);
 			},
