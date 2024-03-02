@@ -40,7 +40,7 @@ This should output a `.ccmod`
 import 'nax-ccuilib/src/headers/nax/quick-menu-public-api.d.ts'
 
 /* check if the mod is installed */
-if (nax.ccuilib.QuickRingMenuWidgets) {
+if (window.nax?.ccuilib?.QuickRingMenuWidgets) {
     nax.ccuilib.QuickRingMenuWidgets.addWidget({
         name: 'freesp',
         title: 'Give SP',
