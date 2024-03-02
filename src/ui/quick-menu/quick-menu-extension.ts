@@ -1,5 +1,5 @@
 ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
-	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch")
+	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch", "nax-ccuilib.ui.quick-menu.help-button")
 	.defines(() => {
 		const { selGridW, angleVec, getAllIdsFromRing, getIdFromRingPos, getRingMaxSize, getRingPosFromId, getWidgetFromId, possibleIds, ringCountToInit, saveConfig } = {
 			...nax.ccuilib.quickRingUtil,
@@ -193,7 +193,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				this.buttongroup.setButtons(...this.buttons);
 			},
 			_createRingButton() {
-				throw new Error("cc-quick-menu-ext: This way of creating quick menu buttons is not supported.");
+				throw new Error("CCUILib: This way of creating quick menu buttons is not supported.");
 			},
 			enterEditMode() {
 				this.editModeOn = true;
