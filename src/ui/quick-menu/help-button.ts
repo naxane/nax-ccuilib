@@ -36,12 +36,14 @@ ig.module("nax-ccuilib.ui.quick-menu.help-button").defines(() => {
 		},
 		_exitMenu() {
 			this.parent();
-			sc.quickmodel.buttonInteract.removeGlobalButton(button);
-			button.doStateTransition("HIDDEN", true);
 
-			const popup = ig.gui.guiHooks.find(h => h.gui instanceof sc.ModalButtonInteract)?.gui as sc.ModalButtonInteract | undefined;
-			if (popup) {
-				popup.buttongroup._invokePressCallbacks(popup.buttons[0]);
+			if (button.hook.currentStateName == "DEFAULT") {
+				sc.quickmodel.buttonInteract.removeGlobalButton(button);
+				button.doStateTransition("HIDDEN", true);
+				const popup = ig.gui.guiHooks.find(h => h.gui instanceof sc.ModalButtonInteract)?.gui as sc.ModalButtonInteract | undefined;
+				if (popup) {
+					popup.buttongroup._invokePressCallbacks(popup.buttons[0]);
+				}
 			}
 		},
 	});
