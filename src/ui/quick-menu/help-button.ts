@@ -49,10 +49,13 @@ ig.module("nax-ccuilib.ui.quick-menu.help-button").defines(() => {
 		_enterMenu() {
 			this.parent();
 
-			sc.quickmodel.buttonInteract.addGlobalButton(button, () => sc.control.menuHotkeyHelp());
-			if (localStorage.getItem(localStorageId) != "true") {
-				button.doStateTransition("DEFAULT");
-				button.doPosTranstition(349, 295, 0, KEY_SPLINES.LINEAR);
+			/* CrossedEyes has a different quick menu help screen, below it's checking if it's enabled, if yes, then don't implement the help popup here */
+			if (!sc.options.get("tts-tts")) {
+				sc.quickmodel.buttonInteract.addGlobalButton(button, () => sc.control.menuHotkeyHelp());
+				if (localStorage.getItem(localStorageId) != "true") {
+					button.doStateTransition("DEFAULT");
+					button.doPosTranstition(349, 295, 0, KEY_SPLINES.LINEAR);
+				}
 			}
 		},
 	});
