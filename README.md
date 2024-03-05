@@ -27,13 +27,10 @@ To switch rings on gamepad, use L1 and R1.
 ```bash
 git clone https://github.com/conorlawton/nax-ccuilib
 cd nax-ccuilib
-npm install
-# this should return no errors (hopefully)
-npx tsc
-npm run build
+pnpm run build
 ```
 
-This should output a `.ccmod`  
+This should compiled into `dist` and zip the contents into a `.ccmod` in `build`.
 
 #### Adding your own widget
 
