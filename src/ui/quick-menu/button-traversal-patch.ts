@@ -56,7 +56,8 @@ ig.module("nax-ccuilib.ui.quick-menu.button-traversal-patch")
 						const ids = getAllIdsFromRing(currentRing);
 						if (ids.length == 0) return;
 						const dirVec: Vec2 = dirOverride ?? Vec2.createC(ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_X), ig.gamepad.getAxesValue(ig.AXES.LEFT_STICK_Y));
-						if (Vec2.isZero(dirVec)) return;
+						if (Vec2.distance(dirVec, Vec2.create()) < 0.1) return;
+
 						this.lastDir = dirVec;
 						if (currentRing == ringCountToInit) {
 							const dir = this.getRepeaterValue(dirVec);
