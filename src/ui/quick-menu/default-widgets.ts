@@ -18,6 +18,7 @@ ig.module("nax-ccuilib.ui.quick-menu.default-widgets").defines(() => {
 			sc.QuickRingMenu.instance.items = button;
 			button.addChildGui(new sc.ItemTimerOverlay(button));
 		},
+		imageNoCache: true,
 	});
 	nax.ccuilib.QuickRingMenuWidgets.addWidget({
 		key: "11_analyze",
@@ -28,6 +29,7 @@ ig.module("nax-ccuilib.ui.quick-menu.default-widgets").defines(() => {
 		additionalInit: button => {
 			sc.QuickRingMenu.instance.check = button;
 		},
+		imageNoCache: true,
 	});
 	nax.ccuilib.QuickRingMenuWidgets.addWidget({
 		key: "11_party",
@@ -38,6 +40,7 @@ ig.module("nax-ccuilib.ui.quick-menu.default-widgets").defines(() => {
 		additionalInit: button => {
 			sc.QuickRingMenu.instance.party = button;
 		},
+		imageNoCache: true,
 	});
 	nax.ccuilib.QuickRingMenuWidgets.addWidget({
 		key: "11_map",
@@ -48,5 +51,6 @@ ig.module("nax-ccuilib.ui.quick-menu.default-widgets").defines(() => {
 		additionalInit: button => {
 			sc.QuickRingMenu.instance.map = button;
 		},
+		imageNoCache: true,
 	});
 });

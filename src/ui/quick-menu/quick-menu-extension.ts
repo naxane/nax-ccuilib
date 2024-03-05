@@ -1,5 +1,5 @@
 ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
-	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch")
+	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch", "nax-ccuilib.ui.quick-menu.help-button")
 	.defines(() => {
 		const { selGridW, angleVec, getAllIdsFromRing, getIdFromRingPos, getRingMaxSize, getRingPosFromId, getWidgetFromId, possibleIds, ringCountToInit, saveConfig } = {
 			...nax.ccuilib.quickRingUtil,
@@ -57,7 +57,6 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					});
 			},
 			enter() {
-				this.parent();
 				this.selectedToMoveButton = undefined;
 				this.exitEditMode();
 				this.currentRingIndex = -1;
@@ -66,6 +65,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.createButtons(true);
 					this.openendAtLeastOnce = true;
 				}
+				this.parent();
 			},
 			exit() {
 				this.parent();
@@ -190,10 +190,21 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.buttons.push(button);
 				}
 
+				const forcePositions: { id: string; index: number }[] = [
+					{ id: "11_items", index: 0 },
+					{ id: "11_party", index: 2 },
+				];
+				for (const conf of forcePositions) {
+					const oldI = this.buttons.findIndex(b => nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[b.ringId] == conf.id);
+					if (oldI == -1 || oldI == conf.index) continue;
+					[this.buttons[oldI], this.buttons[conf.index]] = [this.buttons[conf.index], this.buttons[oldI]];
+				}
+
 				this.buttongroup.setButtons(...this.buttons);
+				console.log(this.buttons.map(b => nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[b.ringId]));
 			},
 			_createRingButton() {
-				throw new Error("cc-quick-menu-ext: This way of creating quick menu buttons is not supported.");
+				throw new Error("CCUILib: This way of creating quick menu buttons is not supported.");
 			},
 			enterEditMode() {
 				this.editModeOn = true;
@@ -275,7 +286,12 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				/* stolen end */
 				if (!("image" in widget)) return;
 
-				let data = (widget._imageDataCached ??= widget.image(this));
+				let data: ReturnType<nax.ccuilib.QuickMenuWidgetImageConfig>;
+				if (!widget.imageNoCache && widget._imageDataCached) {
+					data = widget._imageDataCached;
+				} else {
+					data = widget._imageDataCached = widget.image(this);
+				}
 				const { pos, srcPos, size } = data;
 				renderer.addGfx(data.gfx, pos.x, pos.y, srcPos.x, srcPos.y, size.x, size.y);
 			},
