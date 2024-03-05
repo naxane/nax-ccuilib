@@ -58,5 +58,9 @@ ig.module("nax-ccuilib.ui.quick-menu.help-button").defines(() => {
 				}
 			}
 		},
+		_exitMenu() {
+			this.parent();
+			button.doStateTransition("HIDDEN");
+		},
 	});
 });
