@@ -201,7 +201,6 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				}
 
 				this.buttongroup.setButtons(...this.buttons);
-				console.log(this.buttons.map(b => nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[b.ringId]));
 			},
 			_createRingButton() {
 				throw new Error("CCUILib: This way of creating quick menu buttons is not supported.");
