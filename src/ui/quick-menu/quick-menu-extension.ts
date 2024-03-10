@@ -190,7 +190,18 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.buttons.push(button);
 				}
 
+				const forcePositions: { id: string; index: number }[] = [
+					{ id: "11_items", index: 0 },
+					{ id: "11_party", index: 2 },
+				];
+				for (const conf of forcePositions) {
+					const oldI = this.buttons.findIndex(b => nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[b.ringId] == conf.id);
+					if (oldI == -1 || oldI == conf.index) continue;
+					[this.buttons[oldI], this.buttons[conf.index]] = [this.buttons[conf.index], this.buttons[oldI]];
+				}
+
 				this.buttongroup.setButtons(...this.buttons);
+				console.log(this.buttons.map(b => nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[b.ringId]));
 			},
 			_createRingButton() {
 				throw new Error("CCUILib: This way of creating quick menu buttons is not supported.");
