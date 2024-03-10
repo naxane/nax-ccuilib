@@ -57,7 +57,6 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					});
 			},
 			enter() {
-				this.parent();
 				this.selectedToMoveButton = undefined;
 				this.exitEditMode();
 				this.currentRingIndex = -1;
@@ -66,6 +65,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.createButtons(true);
 					this.openendAtLeastOnce = true;
 				}
+				this.parent();
 			},
 			exit() {
 				this.parent();
