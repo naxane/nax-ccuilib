@@ -18,6 +18,7 @@
 	},
 	"scripts": {
 		"build": "node esbuild.js",
+		"watch": "node esbuild.js watch",
 		"format": "prettier ./src -w"
 	}
 }
