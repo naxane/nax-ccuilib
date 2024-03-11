@@ -264,11 +264,18 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 			init(state, endPosX, endPosY) {
 				this.parent(state, endPosX, endPosY);
 			},
+			getLocalStorageToggleId() {
+				return `ccuilib-quickmenuwidget-${getWidgetFromId(this.ringId).name}`;
+			},
+			isToggleOn() {
+				return localStorage.getItem(this.getLocalStorageToggleId()) == "true";
+			},
 			invokeButtonPress() {
 				ig.FocusGui.prototype.invokeButtonPress.call(this);
 				if (this.isAToggle) {
-					this.isOn = !this.isOn;
-					sc.BUTTON_SOUND[this.isOn ? "toggle_on" : "toggle_off"].play();
+					const value = (!this.isToggleOn()).toString();
+					localStorage.setItem(this.getLocalStorageToggleId(), value);
+					sc.BUTTON_SOUND[this.isToggleOn() ? "toggle_on" : "toggle_off"].play();
 				} else sc.BUTTON_SOUND.submit.play();
 			},
 			focusGained() {
@@ -290,7 +297,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				/* stolen */
 				renderer.addGfx(this.gfx, 0, 0, 400, 304, 32, 32);
 				if (this.active) {
-					if ((!this.focus && this.pressed) || this.isOn) renderer.addGfx(this.gfx, 0, 0, 400, 336, 32, 32);
+					if ((!this.focus && this.pressed) || this.isToggleOn()) renderer.addGfx(this.gfx, 0, 0, 400, 336, 32, 32);
 					else if (this.focus) {
 						renderer.addGfx(this.gfx, 0, 0, 400, 336, 32, 32).setAlpha(this.alpha);
 					}
