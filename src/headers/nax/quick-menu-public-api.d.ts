@@ -18,6 +18,7 @@ declare global {
 			pressEvent?: (button: sc.RingMenuButton) => void;
 			keepPressed?: boolean;
 			description?: string;
+			toggle?: boolean;
 
 			id?: sc.QUICK_MENU_STATE;
 			additionalInit?: (button: sc.RingMenuButton) => void;
