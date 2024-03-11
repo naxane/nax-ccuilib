@@ -18,6 +18,7 @@ declare global {
 			title: string;
 			ringId: number;
 			isOn?: boolean;
+			isAToggle?: boolean;
 		}
 
 		interface QuickRingMenu {

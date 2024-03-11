@@ -12,9 +12,4 @@ declare global {
 			lockLayout: boolean;
 		}
 	}
-	namespace sc {
-		interface RingMenuButton {
-			isAToggle?: boolean;
-		}
-	}
 }
