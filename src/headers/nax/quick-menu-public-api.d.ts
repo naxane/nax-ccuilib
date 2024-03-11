@@ -19,7 +19,7 @@ declare global {
 			keepPressed?: boolean;
 			description?: string;
 
-			id?: number;
+			id?: sc.QUICK_MENU_STATE;
 			additionalInit?: (button: sc.RingMenuButton) => void;
 		} & (
 			| {
