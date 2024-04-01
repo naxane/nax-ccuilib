@@ -1,6 +1,6 @@
 {
 	"id": "nax-ccuilib",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"title": "CCUILib",
 	"description": "Library of additional UI elements as well as making existing ones configurable",
 	"repository": "https://github.com/conorlawton/nax-ccuilib",
