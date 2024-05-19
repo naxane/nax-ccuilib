@@ -95,7 +95,14 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 			},
 			update() {
 				this.parent();
-				if (sc.quickmodel.visible && sc.quickmodel.isQuickNone()) {
+				const lastI = ig.interact.entries.last();
+				if (
+					sc.quickmodel.visible &&
+					sc.quickmodel.isQuickNone() &&
+					/* make sure that no popup is over the quick menu */
+					lastI instanceof ig.ButtonInteractEntry &&
+					lastI.buttonGroupStack[0] == this.buttongroup
+				) {
 					const add = ig.gamepad.isButtonPressed(ig.BUTTONS.LEFT_SHOULDER) ? -1 : ig.gamepad.isButtonPressed(ig.BUTTONS.RIGHT_SHOULDER) ? 1 : 0;
 					if (add != 0) {
 						if (this.nextRing(add)) sc.BUTTON_SOUND.submit.play();
