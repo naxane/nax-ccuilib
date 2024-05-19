@@ -2,7 +2,7 @@
 
 # nax-ccuilib
 
-Aims to provide cross compatability with multiple mods wanting to use the same UI space.
+Aims to provide cross compatibility with multiple mods wanting to use the same UI space.
 
 ## Quick menu extension
 
@@ -19,6 +19,7 @@ To switch rings on gamepad, use L1 and R1.
 - [cc-vim](https://github.com/krypciak/cc-vim) add some useful widgets for mod developers
 - [cc-speedrun-utilities](https://github.com/CCDirectLink/cc-speedrun-utilities) add speedrun related widgets
 - [cc-blitzkrieg](https://github.com/krypciak/cc-blitzkrieg) adds a puzzle skipping widget
+- [CrossedEyes](https://github.com/CCDirectLink/CrossedEyes) adds accessibility related widgets
 
 ### For developers
 
@@ -35,7 +36,7 @@ This should compiled into `dist` and zip the contents into a `.ccmod` in `build`
 #### Adding your own widget
 
 ```ts
-import 'nax-ccuilib/src/headers/nax/quick-menu-public-api.d.ts'
+import type * as _ from 'nax-ccuilib/src/headers/nax/quick-menu-public-api.d.ts'
 
 /* check if the mod is installed */
 if (window.nax?.ccuilib?.QuickRingMenuWidgets) {
