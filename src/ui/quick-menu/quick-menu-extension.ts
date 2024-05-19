@@ -61,6 +61,8 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				this.exitEditMode();
 				this.currentRingIndex = -1;
 				this.nextRing(1);
+				this.buttongroup.doButtonTraversal(false, this.buttongroup.lastDir);
+
 				if (!this.openendAtLeastOnce) {
 					this.createButtons(true);
 					this.openendAtLeastOnce = true;
