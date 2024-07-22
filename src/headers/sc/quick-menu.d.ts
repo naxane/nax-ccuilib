@@ -18,9 +18,10 @@ declare global {
 			title: string;
 			ringId: number;
 			isAToggle?: boolean;
+			toggledCache?: boolean;
 
-            getLocalStorageToggleId(this: this): string
-            isToggleOn(this: this): boolean
+			getLocalStorageToggleId(this: this): string;
+			isToggleOn(this: this): boolean;
 		}
 
 		interface QuickRingMenu {

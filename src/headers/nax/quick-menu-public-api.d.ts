@@ -33,6 +33,7 @@ declare global {
 
 		interface QuickRingMenuWidgets extends sc.Model {
 			addWidget(widget: nax.ccuilib.QuickMenuWidget): void;
+			isWidgetToggledOn(widgetName: string): boolean;
 		}
 		var QuickRingMenuWidgets: QuickRingMenuWidgets;
 	}
