@@ -1,7 +1,8 @@
 /// <reference path="global.d.ts" />
 
 import { Mod, PluginClass } from "ultimate-crosscode-typedefs/modloader/mod";
-import { quickRingUtil } from "./ui/quick-menu/quick-menu-preload.js";
+import { registerOpts } from "./options.js";
+import { initQuickRingUtil } from "./ui/quick-menu/quick-menu-preload.js";
 
 export default class Item implements PluginClass {
 	mod: Mod;
@@ -14,10 +15,11 @@ export default class Item implements PluginClass {
 		// @ts-expect-error
 		window.nax.ccuilib ??= {};
 
-		quickRingUtil.initExtensionVars();
+		initQuickRingUtil();
 	}
 
 	prestart() {
+		registerOpts();
 		const dir = this.mod.baseDirectory.substring(7);
 		// @ts-expect-error
 		window.moduleCache.registerModPrefix("nax-ccuilib", dir);

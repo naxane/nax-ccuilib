@@ -1,15 +1,12 @@
-import { quickRingUtil as quickRingUtilImport } from "../../ui/quick-menu/quick-menu-preload";
+import type { initQuickRingUtil } from "../../ui/quick-menu/quick-menu-preload";
 
 export {};
 declare global {
 	namespace nax.ccuilib {
-		var quickRingUtil: typeof quickRingUtilImport;
+		var quickRingUtil: ReturnType<typeof initQuickRingUtil>;
 
 		interface QuickRingMenuWidgets extends sc.Model {
-			_ringConfiguration: Record<number, string>;
-			ringConfiguration: Record<number, string>;
 			widgets: Record<string, nax.ccuilib.QuickMenuWidget>;
-			lockLayout: boolean;
 		}
 	}
 }

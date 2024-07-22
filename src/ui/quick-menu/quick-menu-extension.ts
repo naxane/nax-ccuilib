@@ -1,14 +1,32 @@
+import type { Opts as OptsType } from "../../options";
+
 ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
-	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch", "nax-ccuilib.ui.quick-menu.help-button")
+	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch")
 	.defines(() => {
-		const { selGridW, angleVec, getAllIdsFromRing, getIdFromRingPos, getRingMaxSize, getRingPosFromId, getWidgetFromId, possibleIds, ringCountToInit, saveConfig } = {
-			...nax.ccuilib.quickRingUtil,
+		const quickRingUtil = nax.ccuilib.quickRingUtil;
+		const {
+			selGridW,
+			angleVec,
+			getAllIdsFromRing,
+			getIdFromRingPos,
+			getRingMaxSize,
+			getRingPosFromId,
+			getWidgetFromId,
+			possibleIds,
+			ringCountToInit,
+			saveRingConfig,
+		} = {
+			...quickRingUtil,
 		};
+
+		const Opts = modmanager.options["nax-ccuilib"] as typeof OptsType;
 
 		sc.QuickRingMenu.inject({
 			init() {
 				sc.QuickRingMenu.instance = this;
 				this.openendAtLeastOnce = false;
+
+				quickRingUtil.ringConf = Opts.ringConfiguration;
 
 				this.currentRingIndex = -1;
 				this.nextRing(1);
@@ -44,10 +62,11 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				/* the last ring is not accually a ring, but a selection "menu" */
 				const selGridPos: Vec2 = { x: 207, y: -80 };
 				this.possibleSelGridIds = Object.keys(nax.ccuilib.QuickRingMenuWidgets.widgets)
+					.filter(name => !name.startsWith("dummy"))
 					.sort()
 					.map((name, i) => {
 						const id = getIdFromRingPos(ringCountToInit, i);
-						nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id] = name;
+						quickRingUtil.ringConf[id] = name;
 						const y = Math.floor(i / selGridW);
 						const x = (i % selGridW) + (y % 2) / 2;
 						const position = Vec2.create(selGridPos);
@@ -57,6 +76,8 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					});
 			},
 			enter() {
+				quickRingUtil.ringConf = Opts.ringConfiguration;
+
 				this.selectedToMoveButton = undefined;
 				this.exitEditMode();
 				this.currentRingIndex = -1;
@@ -110,10 +131,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					}
 
 					const isGamepad = ig.input.currentDevice == ig.INPUT_DEVICES.GAMEPAD;
-					if (
-						!nax.ccuilib.QuickRingMenuWidgets.lockLayout &&
-						(isGamepad ? ig.gamepad.isButtonPressed(ig.BUTTONS.FACE2 /* x */) : ig.input.pressed("dash")) /* right click */
-					) {
+					if (!Opts.lockLayout && (isGamepad ? ig.gamepad.isButtonPressed(ig.BUTTONS.FACE2 /* x */) : ig.input.pressed("dash")) /* right click */) {
 						if (!this.selectedToMoveButton) {
 							if (this.editModeOn) {
 								this.selectedToMoveButton = focusedButton;
@@ -126,25 +144,25 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 							const fromB = this.selectedToMoveButton;
 							const toB = focusedButton;
 							if (toB) {
-								let fromWidget: string = nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[fromB.ringId];
-								let toWidget: string = nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[toB.ringId];
+								let fromWidget: string = quickRingUtil.ringConf[fromB.ringId];
+								let toWidget: string = quickRingUtil.ringConf[toB.ringId];
 
 								const fromRing: number = getRingPosFromId(fromB.ringId).ring;
 								const toRing: number = getRingPosFromId(toB.ringId).ring;
 								if (fromRing == ringCountToInit) {
 									if (toRing != ringCountToInit) {
-										nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[toB.ringId] = fromWidget;
+										quickRingUtil.ringConf[toB.ringId] = fromWidget;
 									}
 								} else {
 									if (toRing == ringCountToInit) {
-										nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[fromB.ringId] = `dummy${fromB.ringId}`;
+										quickRingUtil.ringConf[fromB.ringId] = `dummy${fromB.ringId}`;
 									} else {
-										nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[fromB.ringId] = toWidget;
-										nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[toB.ringId] = fromWidget;
+										quickRingUtil.ringConf[fromB.ringId] = toWidget;
+										quickRingUtil.ringConf[toB.ringId] = fromWidget;
 									}
 								}
 
-								saveConfig(this.possibleSelGridIds);
+								saveRingConfig(this.possibleSelGridIds);
 
 								this.selectedToMoveButton = undefined;
 								sc.BUTTON_SOUND.toggle_off.play();
@@ -189,7 +207,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					.concat(this.editModeOn ? this.possibleSelGridIds : [])
 					.map(id => ({
 						id,
-						widgetName: nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id],
+						widgetName: quickRingUtil.ringConf[id],
 					}))
 					.filter(o => o.widgetName)
 					.map(o =>
@@ -199,7 +217,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					)
 					.filter(o => {
 						if (!o.widget) {
-							delete nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[o.id];
+							delete quickRingUtil.ringConf[o.id];
 							return false;
 						}
 						return true;
@@ -228,8 +246,8 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 				this.infoBar.doStateTransition("HIDDEN");
 			},
 			showDummyButtons() {
+				this.onWidgetListUpdate();
 				if (!this.dummyButtonsCreated) {
-					this.onWidgetListUpdate();
 					for (const id of possibleIds) {
 						nax.ccuilib.QuickRingMenuWidgets.addWidget({
 							name: `dummy${id}`,
@@ -240,17 +258,17 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.dummyButtonsCreated = true;
 				}
 				for (const id of possibleIds) {
-					if (nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id]) continue;
-					nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id] = `dummy${id}`;
+					if (quickRingUtil.ringConf[id]) continue;
+					quickRingUtil.ringConf[id] = `dummy${id}`;
 				}
 				this.createButtons(true);
 			},
 			hideDummyButtons() {
 				let anyHidden = false;
 				for (const id of possibleIds) {
-					const widgetName = nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id];
-					if (widgetName && widgetName.startsWith("dummy")) {
-						delete nax.ccuilib.QuickRingMenuWidgets.ringConfiguration[id];
+					const widgetName = quickRingUtil.ringConf[id];
+					if (widgetName?.startsWith("dummy")) {
+						delete quickRingUtil.ringConf[id];
 						anyHidden = true;
 					}
 				}
@@ -273,17 +291,22 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 			init(state, endPosX, endPosY) {
 				this.parent(state, endPosX, endPosY);
 			},
-			getLocalStorageToggleId() {
-				return `ccuilib-quickmenuwidget-${getWidgetFromId(this.ringId).name}`;
-			},
 			isToggleOn() {
-				return localStorage.getItem(this.getLocalStorageToggleId()) == "true";
+				return (this.toggledCache ??= nax.ccuilib.QuickRingMenuWidgets.isWidgetToggledOn(getWidgetFromId(this.ringId).name));
 			},
 			invokeButtonPress() {
+				/* Update the state in case a default widget that uses that variable was just swapped */
+				this.state = getWidgetFromId(this.ringId).id ?? 0;
+
 				ig.FocusGui.prototype.invokeButtonPress.call(this);
 				if (this.isAToggle) {
-					const value = (!this.isToggleOn()).toString();
-					localStorage.setItem(this.getLocalStorageToggleId(), value);
+					const newConf = { ...Opts.buttonPressStatus };
+					newConf[getWidgetFromId(this.ringId).name] = this.toggledCache = !this.isToggleOn();
+					Opts.buttonPressStatus = newConf;
+
+					/* Reset all toggle cache on all buttons to prevent multiple of the same button cache states desyncing */
+					for (const button of sc.QuickRingMenu.instance.buttons) button.toggledCache = undefined
+
 					sc.BUTTON_SOUND[this.isToggleOn() ? "toggle_on" : "toggle_off"].play();
 				} else sc.BUTTON_SOUND.submit.play();
 			},
