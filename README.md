@@ -56,3 +56,5 @@ if (window.nax?.ccuilib?.QuickRingMenuWidgets) {
     })
 }
 ```
+
+As an example of a toggleable widget, see [cc-jetpack-widget](https://github.com/krypciak/cc-jetpack-widget/blob/main/src/plugin.ts)
