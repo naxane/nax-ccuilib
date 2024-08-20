@@ -1,4 +1,5 @@
 import type { Opts as OptsType } from "../../options";
+import type * as _ from "ccmodmanager/types/gui/manual-enforcer";
 
 ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 	.requires("nax-ccuilib.ui.quick-menu.default-widgets", "nax-ccuilib.ui.quick-menu.button-traversal-patch")
@@ -89,6 +90,9 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					this.openendAtLeastOnce = true;
 				}
 				this.parent();
+
+				const entry = modmanager.optionConfigs["nax-ccuilib"].settings.helpMenu!;
+				new modmanager.gui.ManualEnforcer("CCUILib-quickmenu", entry.title, entry.pages);
 			},
 			exit() {
 				this.parent();
@@ -305,7 +309,7 @@ ig.module("nax-ccuilib.ui.quick-menu.quick-menu-extension")
 					Opts.buttonPressStatus = newConf;
 
 					/* Reset all toggle cache on all buttons to prevent multiple of the same button cache states desyncing */
-					for (const button of sc.QuickRingMenu.instance.buttons) button.toggledCache = undefined
+					for (const button of sc.QuickRingMenu.instance.buttons) button.toggledCache = undefined;
 
 					sc.BUTTON_SOUND[this.isToggleOn() ? "toggle_on" : "toggle_off"].play();
 				} else sc.BUTTON_SOUND.submit.play();

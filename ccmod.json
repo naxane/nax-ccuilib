@@ -8,7 +8,7 @@
 	"authors": ["nax", "krypek"],
 	"dependencies": {
 		"nax-module-cache": ">=1.0.0",
-		"ccmodmanager": ">=0.9.15"
+		"ccmodmanager": ">=0.9.21"
 	},
 	"plugin": "nax-ccuilib/plugin.js"
 }
