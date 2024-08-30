@@ -4,5 +4,6 @@ dist
 .vscode/
 build/
 *.png~
-package-lock.json
-esbuild-post.js
+
+# Remove when copying the template. 
+# esbuild-post.mjs
